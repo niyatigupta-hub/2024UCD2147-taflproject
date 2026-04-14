@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "DFA Minimization Visualizer"
+version = "1.0.0"
+id = "artifacts/dfa-minimizer"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25708
+
+[services.development]
+run = "pnpm --filter @workspace/dfa-minimizer run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/dfa-minimizer", "run", "build" ]
+publicDir = "artifacts/dfa-minimizer/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25708"
+BASE_PATH = "/"
